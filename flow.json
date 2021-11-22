@@ -1,1 +1,392 @@
-[]
+[
+    {
+        "id": "937379985a2fe9d0",
+        "type": "tab",
+        "label": "recognition",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "21b4bf96e0e5ae64",
+        "type": "ui_group",
+        "name": "Enroll",
+        "tab": "46e3ad3dfdd9b1d9",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "46e3ad3dfdd9b1d9",
+        "type": "ui_tab",
+        "name": "Enroll",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "c5af38596235179c",
+        "type": "base64",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "action": "str",
+        "property": "payload",
+        "x": 440,
+        "y": 160,
+        "wires": [
+            [
+                "361ebae886641d9a",
+                "e2f36cc2f72d6d26"
+            ]
+        ]
+    },
+    {
+        "id": "dc5409e8b320f996",
+        "type": "ui_text_input",
+        "z": "937379985a2fe9d0",
+        "name": "Name",
+        "label": "",
+        "tooltip": "",
+        "group": "21b4bf96e0e5ae64",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "topic",
+        "sendOnBlur": true,
+        "topicType": "msg",
+        "x": 130,
+        "y": 280,
+        "wires": [
+            [
+                "30479248edbcf641"
+            ]
+        ]
+    },
+    {
+        "id": "1158b0473af0aa86",
+        "type": "ui_button",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "group": "21b4bf96e0e5ae64",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Enroll",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 330,
+        "y": 280,
+        "wires": [
+            [
+                "7c85446ddd8c2c1e"
+            ]
+        ]
+    },
+    {
+        "id": "361ebae886641d9a",
+        "type": "template",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<img width=\"320px\" height=\"240px\" src=\"data:image/jpg;base64,{{{payload}}}\">",
+        "output": "str",
+        "x": 640,
+        "y": 160,
+        "wires": [
+            [
+                "68f4f7aaf3d16835"
+            ]
+        ]
+    },
+    {
+        "id": "68f4f7aaf3d16835",
+        "type": "ui_template",
+        "z": "937379985a2fe9d0",
+        "group": "21b4bf96e0e5ae64",
+        "name": "capture",
+        "order": 2,
+        "width": "6",
+        "height": "5",
+        "format": "<div ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 800,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7c85446ddd8c2c1e",
+        "type": "function",
+        "z": "937379985a2fe9d0",
+        "name": "payload builder",
+        "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\nmsg.headers['app_id'] = '5e6c64a6';\nmsg.headers['app_key'] = '3b9102cd5d802bdffecf5392f1dd0dc2';\nmsg.payload=\n{\n    \"image\": flow.get('img'),\n    \"subject_id\": flow.get('name'),\n    \"gallery_name\":\"MyGallery\"\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 300,
+        "wires": [
+            [
+                "38d83fb0a6d67b44",
+                "fb7d0c7f3afe346d"
+            ]
+        ]
+    },
+    {
+        "id": "fb7d0c7f3afe346d",
+        "type": "http request",
+        "z": "937379985a2fe9d0",
+        "name": "Enroll on kairos",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.kairos.com/enroll",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 900,
+        "y": 280,
+        "wires": [
+            [
+                "80de14a909c3cfcb"
+            ]
+        ]
+    },
+    {
+        "id": "38d83fb0a6d67b44",
+        "type": "debug",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "e2f36cc2f72d6d26",
+        "type": "change",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "img",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "30479248edbcf641",
+        "type": "change",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "name",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 240,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "80de14a909c3cfcb",
+        "type": "debug",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "8824079d5513c5f7",
+        "type": "ui_button",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "group": "21b4bf96e0e5ae64",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Recognize",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 290,
+        "y": 520,
+        "wires": [
+            [
+                "8412dcb71f58a598"
+            ]
+        ]
+    },
+    {
+        "id": "8412dcb71f58a598",
+        "type": "function",
+        "z": "937379985a2fe9d0",
+        "name": "payload builder",
+        "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\nmsg.headers['app_id'] = '5e6c64a6';\nmsg.headers['app_key'] = '3b9102cd5d802bdffecf5392f1dd0dc2';\nmsg.payload=\n{\n    \"image\": flow.get('img'),\n    \"gallery_name\":\"MyGallery\"\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 540,
+        "wires": [
+            [
+                "d63fe902703f2ee4",
+                "b9f61898abfc363a"
+            ]
+        ]
+    },
+    {
+        "id": "b9f61898abfc363a",
+        "type": "http request",
+        "z": "937379985a2fe9d0",
+        "name": "Recognize on kairos",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.kairos.com/recognize",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 860,
+        "y": 520,
+        "wires": [
+            [
+                "1ff5df22af424b56"
+            ]
+        ]
+    },
+    {
+        "id": "d63fe902703f2ee4",
+        "type": "debug",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "1ff5df22af424b56",
+        "type": "debug",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "9223b1d831a327dd",
+        "type": "ui_webcam",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "group": "21b4bf96e0e5ae64",
+        "order": 1,
+        "width": "12",
+        "height": "6",
+        "countdown": false,
+        "autoStart": false,
+        "hideCaptureButton": false,
+        "showImage": -1,
+        "mirror": true,
+        "format": "png",
+        "x": 280,
+        "y": 160,
+        "wires": [
+            [
+                "c5af38596235179c"
+            ]
+        ]
+    }
+]
