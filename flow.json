@@ -8,6 +8,14 @@
         "env": []
     },
     {
+        "id": "70c6d0755742cf43",
+        "type": "tab",
+        "label": "ESP32 Flow",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "21b4bf96e0e5ae64",
         "type": "ui_group",
         "name": "Enroll",
@@ -22,6 +30,26 @@
         "id": "46e3ad3dfdd9b1d9",
         "type": "ui_tab",
         "name": "Enroll",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "925898fa03566e97",
+        "type": "ui_group",
+        "name": "Press the button to take a snapshot",
+        "tab": "7129ce63ebc8b37a",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7129ce63ebc8b37a",
+        "type": "ui_tab",
+        "name": "AI",
         "icon": "dashboard",
         "order": 1,
         "disabled": false,
@@ -388,5 +416,355 @@
                 "c5af38596235179c"
             ]
         ]
+    },
+    {
+        "id": "5fe2d2104a70ae64",
+        "type": "ui_button",
+        "z": "70c6d0755742cf43",
+        "name": "",
+        "group": "925898fa03566e97",
+        "order": 4,
+        "width": "2",
+        "height": "1",
+        "passthru": false,
+        "label": "Capture Snapshot",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "flow",
+        "x": 350,
+        "y": 420,
+        "wires": [
+            [
+                "e6a52842589ede17"
+            ]
+        ]
+    },
+    {
+        "id": "75959b075669a4f3",
+        "type": "image",
+        "z": "70c6d0755742cf43",
+        "name": "",
+        "width": 160,
+        "data": "payload",
+        "dataType": "msg",
+        "thumbnail": false,
+        "active": true,
+        "pass": false,
+        "outputs": 0,
+        "x": 940,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "76caf158b4627767",
+        "type": "debug",
+        "z": "70c6d0755742cf43",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "5cf6d0d660f6c4b8",
+        "type": "ui_button",
+        "z": "70c6d0755742cf43",
+        "name": "",
+        "group": "925898fa03566e97",
+        "order": 5,
+        "width": "2",
+        "height": "1",
+        "passthru": false,
+        "label": "Reset Stream",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "flow",
+        "x": 440,
+        "y": 260,
+        "wires": [
+            [
+                "2082771a58a26dd3"
+            ]
+        ]
+    },
+    {
+        "id": "2082771a58a26dd3",
+        "type": "change",
+        "z": "70c6d0755742cf43",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "streamUrl",
+                "pt": "msg",
+                "to": "http://192.168.1.10:81/stream",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 260,
+        "wires": [
+            [
+                "0b468d9e239adca9",
+                "93c1e432d1322425"
+            ]
+        ]
+    },
+    {
+        "id": "0b468d9e239adca9",
+        "type": "debug",
+        "z": "70c6d0755742cf43",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "streamUrl",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "80cde8783801492f",
+        "type": "inject",
+        "z": "70c6d0755742cf43",
+        "name": "Start Stream",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 450,
+        "y": 200,
+        "wires": [
+            [
+                "2082771a58a26dd3"
+            ]
+        ]
+    },
+    {
+        "id": "93c1e432d1322425",
+        "type": "ui_template",
+        "z": "70c6d0755742cf43",
+        "group": "925898fa03566e97",
+        "name": "stream",
+        "order": 1,
+        "width": "12",
+        "height": "8",
+        "format": "<div>\n    <img src=\"{{msg.streamUrl}}\" />\n</div>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 950,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "97bb93e0ca2a4ef4",
+        "type": "inject",
+        "z": "70c6d0755742cf43",
+        "name": "Start Capture",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 370,
+        "y": 460,
+        "wires": [
+            [
+                "e6a52842589ede17"
+            ]
+        ]
+    },
+    {
+        "id": "f185c468350b4728",
+        "type": "inject",
+        "z": "70c6d0755742cf43",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "{\"tab\":\"\"}",
+                "vt": "json"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 250,
+        "y": 80,
+        "wires": [
+            [
+                "a1a0debca35f0756"
+            ]
+        ]
+    },
+    {
+        "id": "a1a0debca35f0756",
+        "type": "ui_ui_control",
+        "z": "70c6d0755742cf43",
+        "name": "",
+        "events": "all",
+        "x": 420,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e6a52842589ede17",
+        "type": "http request",
+        "z": "70c6d0755742cf43",
+        "name": "",
+        "method": "GET",
+        "ret": "bin",
+        "paytoqs": "ignore",
+        "url": "http://192.168.1.10/capture",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 550,
+        "y": 420,
+        "wires": [
+            [
+                "dcbc29b7bb8f3e73",
+                "76caf158b4627767"
+            ]
+        ]
+    },
+    {
+        "id": "d03860b5cb75b51b",
+        "type": "template",
+        "z": "70c6d0755742cf43",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<img width=\"320px\" height=\"240px\" src=\"data:image/jpg;base64,{{{payload}}}\">",
+        "output": "str",
+        "x": 900,
+        "y": 420,
+        "wires": [
+            [
+                "32177f6e9bab3f14"
+            ]
+        ]
+    },
+    {
+        "id": "32177f6e9bab3f14",
+        "type": "ui_template",
+        "z": "70c6d0755742cf43",
+        "group": "925898fa03566e97",
+        "name": "capture",
+        "order": 3,
+        "width": "6",
+        "height": "5",
+        "format": "<div ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 1060,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dcbc29b7bb8f3e73",
+        "type": "base64",
+        "z": "70c6d0755742cf43",
+        "name": "",
+        "action": "str",
+        "property": "payload",
+        "x": 710,
+        "y": 420,
+        "wires": [
+            [
+                "d03860b5cb75b51b",
+                "75959b075669a4f3",
+                "de23e7e839cf59d2"
+            ]
+        ]
+    },
+    {
+        "id": "de23e7e839cf59d2",
+        "type": "debug",
+        "z": "70c6d0755742cf43",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 930,
+        "y": 520,
+        "wires": []
     }
 ]
