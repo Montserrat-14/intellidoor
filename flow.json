@@ -1,5 +1,13 @@
 [
     {
+        "id": "28c0b30d711d2196",
+        "type": "tab",
+        "label": "enroll",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "937379985a2fe9d0",
         "type": "tab",
         "label": "recognition",
@@ -56,25 +64,25 @@
         "hidden": false
     },
     {
-        "id": "c5af38596235179c",
+        "id": "3568749853c0cf5a",
         "type": "base64",
-        "z": "937379985a2fe9d0",
+        "z": "28c0b30d711d2196",
         "name": "",
         "action": "str",
         "property": "payload",
-        "x": 440,
-        "y": 160,
+        "x": 460,
+        "y": 200,
         "wires": [
             [
-                "361ebae886641d9a",
-                "e2f36cc2f72d6d26"
+                "0a61f52014dd977a",
+                "9f3661803bb7e7d8"
             ]
         ]
     },
     {
-        "id": "dc5409e8b320f996",
+        "id": "37828ab24f076a2f",
         "type": "ui_text_input",
-        "z": "937379985a2fe9d0",
+        "z": "28c0b30d711d2196",
         "name": "Name",
         "label": "",
         "tooltip": "",
@@ -88,18 +96,18 @@
         "topic": "topic",
         "sendOnBlur": true,
         "topicType": "msg",
-        "x": 130,
-        "y": 280,
+        "x": 150,
+        "y": 320,
         "wires": [
             [
-                "30479248edbcf641"
+                "e69d78ed78de2fb6"
             ]
         ]
     },
     {
-        "id": "1158b0473af0aa86",
+        "id": "ad53ef90af61256f",
         "type": "ui_button",
-        "z": "937379985a2fe9d0",
+        "z": "28c0b30d711d2196",
         "name": "",
         "group": "21b4bf96e0e5ae64",
         "order": 4,
@@ -116,18 +124,18 @@
         "payloadType": "str",
         "topic": "topic",
         "topicType": "msg",
-        "x": 330,
-        "y": 280,
+        "x": 350,
+        "y": 320,
         "wires": [
             [
-                "7c85446ddd8c2c1e"
+                "32f8cd53309fdee7"
             ]
         ]
     },
     {
-        "id": "361ebae886641d9a",
+        "id": "0a61f52014dd977a",
         "type": "template",
-        "z": "937379985a2fe9d0",
+        "z": "28c0b30d711d2196",
         "name": "",
         "field": "payload",
         "fieldType": "msg",
@@ -135,18 +143,18 @@
         "syntax": "mustache",
         "template": "<img width=\"320px\" height=\"240px\" src=\"data:image/jpg;base64,{{{payload}}}\">",
         "output": "str",
-        "x": 640,
-        "y": 160,
+        "x": 660,
+        "y": 200,
         "wires": [
             [
-                "68f4f7aaf3d16835"
+                "49b0c7078003672c"
             ]
         ]
     },
     {
-        "id": "68f4f7aaf3d16835",
+        "id": "49b0c7078003672c",
         "type": "ui_template",
-        "z": "937379985a2fe9d0",
+        "z": "28c0b30d711d2196",
         "group": "21b4bf96e0e5ae64",
         "name": "capture",
         "order": 2,
@@ -158,16 +166,16 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 800,
-        "y": 160,
+        "x": 820,
+        "y": 200,
         "wires": [
             []
         ]
     },
     {
-        "id": "7c85446ddd8c2c1e",
+        "id": "32f8cd53309fdee7",
         "type": "function",
-        "z": "937379985a2fe9d0",
+        "z": "28c0b30d711d2196",
         "name": "payload builder",
         "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\nmsg.headers['app_id'] = '5e6c64a6';\nmsg.headers['app_key'] = '3b9102cd5d802bdffecf5392f1dd0dc2';\nmsg.payload=\n{\n    \"image\": flow.get('img'),\n    \"subject_id\": flow.get('name'),\n    \"gallery_name\":\"MyGallery\"\n};\nreturn msg;",
         "outputs": 1,
@@ -175,19 +183,19 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 640,
-        "y": 300,
+        "x": 660,
+        "y": 340,
         "wires": [
             [
-                "38d83fb0a6d67b44",
-                "fb7d0c7f3afe346d"
+                "f10dcdf7f6181108",
+                "9d192720f1ae279d"
             ]
         ]
     },
     {
-        "id": "fb7d0c7f3afe346d",
+        "id": "9d192720f1ae279d",
         "type": "http request",
-        "z": "937379985a2fe9d0",
+        "z": "28c0b30d711d2196",
         "name": "Enroll on kairos",
         "method": "POST",
         "ret": "obj",
@@ -198,18 +206,18 @@
         "proxy": "",
         "authType": "",
         "senderr": false,
-        "x": 900,
-        "y": 280,
+        "x": 920,
+        "y": 320,
         "wires": [
             [
-                "80de14a909c3cfcb"
+                "bc5799b97f8ad29c"
             ]
         ]
     },
     {
-        "id": "38d83fb0a6d67b44",
+        "id": "f10dcdf7f6181108",
         "type": "debug",
-        "z": "937379985a2fe9d0",
+        "z": "28c0b30d711d2196",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -219,14 +227,14 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 770,
-        "y": 400,
+        "x": 790,
+        "y": 440,
         "wires": []
     },
     {
-        "id": "e2f36cc2f72d6d26",
+        "id": "9f3661803bb7e7d8",
         "type": "change",
-        "z": "937379985a2fe9d0",
+        "z": "28c0b30d711d2196",
         "name": "",
         "rules": [
             {
@@ -242,16 +250,16 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 540,
-        "y": 220,
+        "x": 560,
+        "y": 260,
         "wires": [
             []
         ]
     },
     {
-        "id": "30479248edbcf641",
+        "id": "e69d78ed78de2fb6",
         "type": "change",
-        "z": "937379985a2fe9d0",
+        "z": "28c0b30d711d2196",
         "name": "",
         "rules": [
             {
@@ -267,16 +275,16 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 240,
-        "y": 440,
+        "x": 260,
+        "y": 480,
         "wires": [
             []
         ]
     },
     {
-        "id": "80de14a909c3cfcb",
+        "id": "bc5799b97f8ad29c",
         "type": "debug",
-        "z": "937379985a2fe9d0",
+        "z": "28c0b30d711d2196",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -286,9 +294,32 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1050,
-        "y": 340,
+        "x": 1070,
+        "y": 380,
         "wires": []
+    },
+    {
+        "id": "bad002328d743ec8",
+        "type": "ui_webcam",
+        "z": "28c0b30d711d2196",
+        "name": "",
+        "group": "21b4bf96e0e5ae64",
+        "order": 1,
+        "width": "12",
+        "height": "6",
+        "countdown": false,
+        "autoStart": false,
+        "hideCaptureButton": false,
+        "showImage": -1,
+        "mirror": true,
+        "format": "png",
+        "x": 280,
+        "y": 200,
+        "wires": [
+            [
+                "3568749853c0cf5a"
+            ]
+        ]
     },
     {
         "id": "8824079d5513c5f7",
@@ -296,7 +327,7 @@
         "z": "937379985a2fe9d0",
         "name": "",
         "group": "21b4bf96e0e5ae64",
-        "order": 4,
+        "order": 6,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -310,11 +341,11 @@
         "payloadType": "str",
         "topic": "topic",
         "topicType": "msg",
-        "x": 290,
-        "y": 520,
+        "x": 150,
+        "y": 340,
         "wires": [
             [
-                "8412dcb71f58a598"
+                "db67dbb099bbf23f"
             ]
         ]
     },
@@ -329,8 +360,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 580,
-        "y": 540,
+        "x": 620,
+        "y": 80,
         "wires": [
             [
                 "d63fe902703f2ee4",
@@ -353,7 +384,7 @@
         "authType": "",
         "senderr": false,
         "x": 860,
-        "y": 520,
+        "y": 80,
         "wires": [
             [
                 "1ff5df22af424b56"
@@ -373,8 +404,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 710,
-        "y": 640,
+        "x": 810,
+        "y": 160,
         "wires": []
     },
     {
@@ -390,31 +421,113 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 990,
-        "y": 580,
+        "x": 1030,
+        "y": 120,
         "wires": []
     },
     {
-        "id": "9223b1d831a327dd",
-        "type": "ui_webcam",
+        "id": "db67dbb099bbf23f",
+        "type": "http request",
         "z": "937379985a2fe9d0",
         "name": "",
-        "group": "21b4bf96e0e5ae64",
-        "order": 1,
-        "width": "12",
-        "height": "6",
-        "countdown": false,
-        "autoStart": false,
-        "hideCaptureButton": false,
-        "showImage": -1,
-        "mirror": true,
-        "format": "png",
-        "x": 280,
-        "y": 160,
+        "method": "GET",
+        "ret": "bin",
+        "paytoqs": "ignore",
+        "url": "http://192.168.1.8/capture",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 330,
+        "y": 320,
         "wires": [
             [
-                "c5af38596235179c"
+                "a3d5d5205169efab"
             ]
+        ]
+    },
+    {
+        "id": "a3d5d5205169efab",
+        "type": "base64",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "action": "str",
+        "property": "payload",
+        "x": 540,
+        "y": 320,
+        "wires": [
+            [
+                "b69449dbc2296810",
+                "457e93720f595191"
+            ]
+        ]
+    },
+    {
+        "id": "b69449dbc2296810",
+        "type": "template",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<img width=\"320px\" height=\"240px\" src=\"data:image/jpg;base64,{{{payload}}}\">",
+        "output": "str",
+        "x": 740,
+        "y": 320,
+        "wires": [
+            [
+                "1c47b553e1f3f306"
+            ]
+        ]
+    },
+    {
+        "id": "1c47b553e1f3f306",
+        "type": "ui_template",
+        "z": "937379985a2fe9d0",
+        "group": "21b4bf96e0e5ae64",
+        "name": "recognition",
+        "order": 5,
+        "width": "6",
+        "height": "5",
+        "format": "<div ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 910,
+        "y": 320,
+        "wires": [
+            [
+                "8412dcb71f58a598"
+            ]
+        ]
+    },
+    {
+        "id": "457e93720f595191",
+        "type": "change",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "img",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 380,
+        "wires": [
+            []
         ]
     },
     {
