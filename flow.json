@@ -24,6 +24,14 @@
         "env": []
     },
     {
+        "id": "9c522be7e1c958f7",
+        "type": "tab",
+        "label": "Motion Sensor",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "21b4bf96e0e5ae64",
         "type": "ui_group",
         "name": "Enroll",
@@ -62,6 +70,129 @@
         "order": 1,
         "disabled": false,
         "hidden": false
+    },
+    {
+        "id": "6bae1d625db9373f",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "7194cc2839520ebf",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
     },
     {
         "id": "3568749853c0cf5a",
@@ -341,8 +472,8 @@
         "payloadType": "str",
         "topic": "topic",
         "topicType": "msg",
-        "x": 150,
-        "y": 340,
+        "x": 590,
+        "y": 260,
         "wires": [
             [
                 "db67dbb099bbf23f"
@@ -360,8 +491,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 620,
-        "y": 80,
+        "x": 1080,
+        "y": 100,
         "wires": [
             [
                 "d63fe902703f2ee4",
@@ -383,8 +514,8 @@
         "proxy": "",
         "authType": "",
         "senderr": false,
-        "x": 860,
-        "y": 80,
+        "x": 1320,
+        "y": 100,
         "wires": [
             [
                 "1ff5df22af424b56"
@@ -404,8 +535,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 810,
-        "y": 160,
+        "x": 1270,
+        "y": 180,
         "wires": []
     },
     {
@@ -421,8 +552,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1030,
-        "y": 120,
+        "x": 1490,
+        "y": 140,
         "wires": []
     },
     {
@@ -433,14 +564,14 @@
         "method": "GET",
         "ret": "bin",
         "paytoqs": "ignore",
-        "url": "http://192.168.1.8/capture",
+        "url": "http://192.168.1.18/capture",
         "tls": "",
         "persist": false,
         "proxy": "",
         "authType": "",
         "senderr": false,
-        "x": 330,
-        "y": 320,
+        "x": 790,
+        "y": 340,
         "wires": [
             [
                 "a3d5d5205169efab"
@@ -454,8 +585,8 @@
         "name": "",
         "action": "str",
         "property": "payload",
-        "x": 540,
-        "y": 320,
+        "x": 1000,
+        "y": 340,
         "wires": [
             [
                 "b69449dbc2296810",
@@ -474,8 +605,8 @@
         "syntax": "mustache",
         "template": "<img width=\"320px\" height=\"240px\" src=\"data:image/jpg;base64,{{{payload}}}\">",
         "output": "str",
-        "x": 740,
-        "y": 320,
+        "x": 1200,
+        "y": 340,
         "wires": [
             [
                 "1c47b553e1f3f306"
@@ -497,8 +628,8 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 910,
-        "y": 320,
+        "x": 1370,
+        "y": 340,
         "wires": [
             [
                 "8412dcb71f58a598"
@@ -524,11 +655,71 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 640,
-        "y": 380,
+        "x": 1100,
+        "y": 400,
         "wires": [
             []
         ]
+    },
+    {
+        "id": "99fc544766e89fb0",
+        "type": "aedes broker",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "mqtt_port": 1883,
+        "mqtt_ws_bind": "port",
+        "mqtt_ws_port": "",
+        "mqtt_ws_path": "",
+        "cert": "",
+        "key": "",
+        "certname": "",
+        "keyname": "",
+        "dburl": "",
+        "usetls": false,
+        "x": 130,
+        "y": 580,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "b3535804b51255e3",
+        "type": "mqtt in",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "topic": "#",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "7194cc2839520ebf",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 480,
+        "wires": [
+            [
+                "53578b8fe051c745",
+                "db67dbb099bbf23f"
+            ]
+        ]
+    },
+    {
+        "id": "53578b8fe051c745",
+        "type": "debug",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 480,
+        "wires": []
     },
     {
         "id": "5fe2d2104a70ae64",
@@ -878,6 +1069,84 @@
         "statusType": "auto",
         "x": 930,
         "y": 520,
+        "wires": []
+    },
+    {
+        "id": "b178063dadd8fc8e",
+        "type": "aedes broker",
+        "z": "9c522be7e1c958f7",
+        "name": "",
+        "mqtt_port": 1883,
+        "mqtt_ws_bind": "port",
+        "mqtt_ws_port": "",
+        "mqtt_ws_path": "",
+        "cert": "",
+        "key": "",
+        "certname": "",
+        "keyname": "",
+        "dburl": "",
+        "usetls": false,
+        "x": 300,
+        "y": 280,
+        "wires": [
+            [
+                "84eb1d03af4151fc"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f102b7e5472ac088",
+        "type": "mqtt in",
+        "z": "9c522be7e1c958f7",
+        "name": "",
+        "topic": "#",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "7194cc2839520ebf",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 360,
+        "y": 180,
+        "wires": [
+            [
+                "a6f6827515e24865"
+            ]
+        ]
+    },
+    {
+        "id": "84eb1d03af4151fc",
+        "type": "debug",
+        "z": "9c522be7e1c958f7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "a6f6827515e24865",
+        "type": "debug",
+        "z": "9c522be7e1c958f7",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 180,
         "wires": []
     }
 ]
