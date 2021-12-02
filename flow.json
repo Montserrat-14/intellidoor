@@ -688,7 +688,7 @@
         "type": "mqtt in",
         "z": "937379985a2fe9d0",
         "name": "",
-        "topic": "#",
+        "topic": "/motion",
         "qos": "2",
         "datatype": "auto",
         "broker": "7194cc2839520ebf",
@@ -720,6 +720,52 @@
         "x": 410,
         "y": 480,
         "wires": []
+    },
+    {
+        "id": "d2dccdac55e21355",
+        "type": "mqtt out",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "topic": "/opendoor",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7194cc2839520ebf",
+        "x": 730,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "f6c2a96edab84467",
+        "type": "ui_button",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "group": "21b4bf96e0e5ae64",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Open Door",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 410,
+        "y": 600,
+        "wires": [
+            [
+                "d2dccdac55e21355"
+            ]
+        ]
     },
     {
         "id": "5fe2d2104a70ae64",
