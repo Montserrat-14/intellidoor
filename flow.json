@@ -364,9 +364,9 @@
         "collapse": false
     },
     {
-        "id": "52c28261d8b95946",
+        "id": "a86038b28f55bf1c",
         "type": "ui_spacer",
-        "z": "815664ce68c011b9",
+        "z": "28c0b30d711d2196",
         "name": "spacer",
         "group": "21b4bf96e0e5ae64",
         "order": 4,
@@ -374,9 +374,9 @@
         "height": 1
     },
     {
-        "id": "b7f5a335aa711c91",
+        "id": "deff10a523eb304a",
         "type": "ui_spacer",
-        "z": "815664ce68c011b9",
+        "z": "28c0b30d711d2196",
         "name": "spacer",
         "group": "21b4bf96e0e5ae64",
         "order": 5,
@@ -384,9 +384,9 @@
         "height": 1
     },
     {
-        "id": "be81e8f2c08d0959",
+        "id": "a6fdfc843ba55f19",
         "type": "ui_spacer",
-        "z": "815664ce68c011b9",
+        "z": "28c0b30d711d2196",
         "name": "spacer",
         "group": "21b4bf96e0e5ae64",
         "order": 6,
@@ -471,7 +471,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<img width=\"320px\" height=\"240px\" src=\"data:image/jpg;base64,{{{payload}}}\">",
+        "template": "<img width=\"320px\" height=\"auto\" src=\"data:image/jpg;base64,{{{payload}}}\">",
         "output": "str",
         "x": 680,
         "y": 200,
@@ -488,8 +488,8 @@
         "group": "21b4bf96e0e5ae64",
         "name": "capture",
         "order": 7,
-        "width": 11,
-        "height": 5,
+        "width": "11",
+        "height": "5",
         "format": "<div ng-bind-html=\"msg.payload\"></div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
@@ -507,7 +507,7 @@
         "type": "function",
         "z": "28c0b30d711d2196",
         "name": "payload builder",
-        "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\nmsg.headers['app_id'] = '4013890d';\nmsg.headers['app_key'] = '480bc809d9df9b6e8e3feaf3a950a851';\nmsg.payload=\n{\n    \"image\": flow.get('img'),\n    \"subject_id\": flow.get('name'),\n    \"gallery_name\":\"MyGallery\"\n};\nreturn msg;",
+        "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\nmsg.headers['app_id'] = '4013890d';\nmsg.headers['app_key'] = '480bc809d9df9b6e8e3feaf3a950a851';\nmsg.payload=\n{\n    \"image\": flow.get('img'),\n    \"subject_id\": flow.get('name'),\n    \"gallery_name\":\"main\"\n};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -710,7 +710,7 @@
         "type": "function",
         "z": "28c0b30d711d2196",
         "name": "payload view gallery builder",
-        "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\nmsg.headers['app_id'] = '4013890d';\nmsg.headers['app_key'] = '480bc809d9df9b6e8e3feaf3a950a851';\nmsg.payload=\n{\n    \"gallery_name\":\"MyGallery\"\n};\nreturn msg;",
+        "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\nmsg.headers['app_id'] = '4013890d';\nmsg.headers['app_key'] = '480bc809d9df9b6e8e3feaf3a950a851';\nmsg.payload=\n{\n    \"gallery_name\":\"main\"\n};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -838,7 +838,7 @@
         "type": "function",
         "z": "28c0b30d711d2196",
         "name": "",
-        "func": "const subjectObj = []\nfor (var subject of msg.payload.subject_ids) {\n    subjectObj.push({\n        \"title\": subject,\n        \"menu\": [\"Remove\"]\n    })\n}\nmsg.payload = subjectObj\nreturn msg;",
+        "func": "const subjectObj = []\nif (msg.payload.subject_ids) {\n    for (var subject of msg.payload.subject_ids) {\n        subjectObj.push({\n            \"title\": subject,\n            \"menu\": [\"Remove\"]\n        })\n    }\n}\nmsg.payload = subjectObj\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -905,7 +905,7 @@
         "type": "function",
         "z": "28c0b30d711d2196",
         "name": "payload delete enroll",
-        "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\nmsg.headers['app_id'] = '4013890d';\nmsg.headers['app_key'] = '480bc809d9df9b6e8e3feaf3a950a851';\nmsg.payload=\n{\n    \"gallery_name\": \"MyGallery\",\n    \"subject_id\": msg.payload.title\n};\nreturn msg;",
+        "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\nmsg.headers['app_id'] = '4013890d';\nmsg.headers['app_key'] = '480bc809d9df9b6e8e3feaf3a950a851';\nmsg.payload=\n{\n    \"gallery_name\": \"main\",\n    \"subject_id\": msg.payload.title\n};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1111,7 +1111,7 @@
         "type": "function",
         "z": "937379985a2fe9d0",
         "name": "payload builder",
-        "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\nmsg.headers['app_id'] = '5e6c64a6';\nmsg.headers['app_key'] = '3b9102cd5d802bdffecf5392f1dd0dc2';\nmsg.payload=\n{\n    \"image\": flow.get('img'),\n    \"gallery_name\":\"MyGallery\"\n};\nreturn msg;",
+        "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\nmsg.headers['app_id'] = '4013890d';\nmsg.headers['app_key'] = '480bc809d9df9b6e8e3feaf3a950a851';\nmsg.payload=\n{\n    \"image\": flow.get('img'),\n    \"gallery_name\":\"MyGallery\"\n};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1281,8 +1281,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1100,
-        "y": 400,
+        "x": 1050,
+        "y": 440,
         "wires": [
             []
         ]
@@ -1416,46 +1416,6 @@
             [
                 "1a069c38d646654f"
             ]
-        ]
-    },
-    {
-        "id": "a99df3d7b820347f",
-        "type": "template",
-        "z": "815664ce68c011b9",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "<img width=\"320px\" height=\"240px\" src=\"data:image/jpg;base64,{{{payload}}}\">",
-        "output": "str",
-        "x": 680,
-        "y": 220,
-        "wires": [
-            [
-                "2874b7f428afd593"
-            ]
-        ]
-    },
-    {
-        "id": "2874b7f428afd593",
-        "type": "ui_template",
-        "z": "815664ce68c011b9",
-        "group": "eb270c1ec3bff226",
-        "name": "capture",
-        "order": 3,
-        "width": 11,
-        "height": 5,
-        "format": "<div ng-bind-html=\"msg.payload\"></div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": false,
-        "templateScope": "local",
-        "className": "",
-        "x": 860,
-        "y": 220,
-        "wires": [
-            []
         ]
     },
     {
@@ -1755,7 +1715,7 @@
         "type": "function",
         "z": "815664ce68c011b9",
         "name": "",
-        "func": "const subjectObj = []\nfor (var subject of msg.payload.subject_ids) {\n    subjectObj.push({\n        \"title\": subject,\n        \"menu\": [\"Remove\"]\n    })\n}\nmsg.payload = subjectObj\nreturn msg;",
+        "func": "const subjectObj = []\nif (msg.payload.subject_ids) {\n    for (var subject of msg.payload.subject_ids) {\n        subjectObj.push({\n            \"title\": subject,\n            \"menu\": [\"Remove\"]\n        })\n    }\n}\nmsg.payload = subjectObj\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2009,6 +1969,46 @@
             [
                 "4ddd54e53c4dfd88"
             ]
+        ]
+    },
+    {
+        "id": "a99df3d7b820347f",
+        "type": "template",
+        "z": "815664ce68c011b9",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<img width=\"320px\" height=\"auto\" src=\"data:image/jpg;base64,{{{payload}}}\">",
+        "output": "str",
+        "x": 680,
+        "y": 220,
+        "wires": [
+            [
+                "2874b7f428afd593"
+            ]
+        ]
+    },
+    {
+        "id": "2874b7f428afd593",
+        "type": "ui_template",
+        "z": "815664ce68c011b9",
+        "group": "eb270c1ec3bff226",
+        "name": "capture",
+        "order": 3,
+        "width": "11",
+        "height": "5",
+        "format": "<div ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 860,
+        "y": 220,
+        "wires": [
+            []
         ]
     },
     {
