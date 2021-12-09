@@ -3,7 +3,12 @@
     "description": "A Node-RED Project",
     "version": "0.0.1",
     "dependencies": {
-        "node-red-contrib-ui-upload": "0.4.4"
+        "node-red-contrib-aedes": "0.6.0",
+        "node-red-contrib-image-output": "0.6.3",
+        "node-red-dashboard": "3.1.2",
+        "node-red-node-base64": "0.3.0",
+        "node-red-node-ui-list": "0.3.6",
+        "node-red-node-ui-webcam": "0.3.0"
     },
     "node-red": {
         "settings": {
