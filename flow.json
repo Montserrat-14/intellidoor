@@ -1382,9 +1382,9 @@
         "wires": [
             [
                 "bf6466b98001567d",
-                "10e3febe4c97b2e2",
                 "d2dccdac55e21355",
-                "a2c12ec3f8d457b8"
+                "a2c12ec3f8d457b8",
+                "d0ba11d802f9b539"
             ]
         ]
     },
@@ -1418,8 +1418,8 @@
         "format": "{{msg.resultMessage}}",
         "layout": "row-spread",
         "className": "",
-        "x": 1720,
-        "y": 800,
+        "x": 2100,
+        "y": 780,
         "wires": []
     },
     {
@@ -1503,7 +1503,7 @@
         "type": "function",
         "z": "937379985a2fe9d0",
         "name": "",
-        "func": "msg.intruder = false\nif(msg.statusCode == 200) {\n    \n    if(msg.payload.Errors){\n        msg.resultMessageBL = msg.payload.Errors[0].Message\n    }\n    \n    else if(msg.payload.images[0].candidates){\n        msg.intruder = true\n        msg.resultMessageBL = `ALERT INTRUDER: ${msg.payload.images[0].candidates[0].subject_id}`\n        \n        \n    }else{\n        msg.resultMessageBL = ''\n    }\n} else {\n    msg.resultMessageBL = \"Error doing recognition\"\n}\nreturn msg;",
+        "func": "msg.intruder = false\nif(msg.statusCode == 200) {\n    \n    if(msg.payload.Errors){\n        msg.resultMessage = msg.payload.Errors[0].Message\n    }\n    \n    else if(msg.payload.images[0].candidates){\n        msg.intruder = true\n        msg.resultMessage = `ALERT INTRUDER: ${msg.payload.images[0].candidates[0].subject_id}`\n        \n        \n    }else{\n        msg.resultMessage = ''\n    }\n} else {\n    msg.resultMessage = \"Error doing recognition\"\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1528,11 +1528,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "resultMessageBL",
+        "complete": "resultMessage",
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1880,
+        "x": 1860,
         "y": 600,
         "wires": []
     },
@@ -1575,7 +1575,7 @@
         "y": 500,
         "wires": [
             [
-                "9b2e4771a27c31f3"
+                "4c926aa93ea2b9ed"
             ],
             [
                 "8412dcb71f58a598"
@@ -1583,20 +1583,46 @@
         ]
     },
     {
-        "id": "9b2e4771a27c31f3",
-        "type": "ui_text",
+        "id": "4c926aa93ea2b9ed",
+        "type": "link out",
         "z": "937379985a2fe9d0",
-        "group": "8f87ab9d9770bd73",
-        "order": 9,
-        "width": 0,
-        "height": 0,
-        "name": "ResultMessage",
-        "label": "",
-        "format": "{{msg.resultMessageBL}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 2180,
+        "name": "",
+        "mode": "link",
+        "links": [
+            "59b146ea97f36ae9"
+        ],
+        "x": 2135,
         "y": 460,
+        "wires": []
+    },
+    {
+        "id": "59b146ea97f36ae9",
+        "type": "link in",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "links": [
+            "4c926aa93ea2b9ed",
+            "d0ba11d802f9b539"
+        ],
+        "x": 1905,
+        "y": 780,
+        "wires": [
+            [
+                "10e3febe4c97b2e2"
+            ]
+        ]
+    },
+    {
+        "id": "d0ba11d802f9b539",
+        "type": "link out",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "59b146ea97f36ae9"
+        ],
+        "x": 1705,
+        "y": 800,
         "wires": []
     },
     {
