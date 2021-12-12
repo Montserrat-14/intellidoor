@@ -295,12 +295,13 @@
     {
         "id": "da7ba9ac.589008",
         "type": "ui_group",
-        "name": "Default",
-        "tab": "",
+        "name": "Statistics",
+        "tab": "a0db01256ec70afa",
         "order": 1,
         "disp": true,
         "width": "12",
-        "collapse": false
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "7e4c65d6.0419cc",
@@ -392,6 +393,14 @@
         "order": 6,
         "width": 5,
         "height": 1
+    },
+    {
+        "id": "a0db01256ec70afa",
+        "type": "ui_tab",
+        "name": "Statistics",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
     },
     {
         "id": "3568749853c0cf5a",
@@ -1328,7 +1337,8 @@
         "wires": [
             [
                 "53578b8fe051c745",
-                "db67dbb099bbf23f"
+                "db67dbb099bbf23f",
+                "0990ede22e056adc"
             ]
         ]
     },
@@ -1624,6 +1634,69 @@
         "x": 1705,
         "y": 800,
         "wires": []
+    },
+    {
+        "id": "0990ede22e056adc",
+        "type": "function",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "func": "var data=context.get(\"data\")|| [];\nif(typeof data[0]==\"undefined\" || msg.topic==\"clear\")\n{\n data[0] =0;\n msg.payload=[];\n}\nelse\n data[0] +=1;\nmsg.payload= data[0]\nmsg.topic = \"movement\"\ncontext.set(\"data\",data);\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 580,
+        "wires": [
+            [
+                "a059cc15c7a0cf20"
+            ]
+        ]
+    },
+    {
+        "id": "a059cc15c7a0cf20",
+        "type": "ui_chart",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "group": "da7ba9ac.589008",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Movement",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 680,
+        "y": 620,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "d2c51ab7e4ea0161",
