@@ -40,6 +40,14 @@
         "env": []
     },
     {
+        "id": "9d5fe8f89613df12",
+        "type": "tab",
+        "label": "notifications demo",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "21b4bf96e0e5ae64",
         "type": "ui_group",
         "name": "Enroll",
@@ -392,6 +400,11 @@
         "order": 6,
         "width": 5,
         "height": 1
+    },
+    {
+        "id": "f2e52b3469dec7e5",
+        "type": "twilioConfig",
+        "name": "twilioConfig"
     },
     {
         "id": "3568749853c0cf5a",
@@ -811,29 +824,6 @@
         ]
     },
     {
-        "id": "e976d5466ec9cf5f",
-        "type": "ui_list",
-        "z": "28c0b30d711d2196",
-        "group": "b7b9c830d5a57ddb",
-        "name": "",
-        "order": 1,
-        "width": 9,
-        "height": 13,
-        "lineType": "one",
-        "actionType": "menu",
-        "allowHTML": false,
-        "outputs": 1,
-        "topic": "",
-        "x": 1210,
-        "y": 620,
-        "wires": [
-            [
-                "cc5df389919afe8c",
-                "59007938c8a16d86"
-            ]
-        ]
-    },
-    {
         "id": "f1f1154e539f2728",
         "type": "function",
         "z": "28c0b30d711d2196",
@@ -1076,6 +1066,49 @@
             [
                 "81c88e257befc24b"
             ]
+        ]
+    },
+    {
+        "id": "e976d5466ec9cf5f",
+        "type": "ui_list",
+        "z": "28c0b30d711d2196",
+        "group": "b7b9c830d5a57ddb",
+        "name": "",
+        "order": 1,
+        "width": 9,
+        "height": 13,
+        "lineType": "one",
+        "actionType": "menu",
+        "allowHTML": false,
+        "outputs": 1,
+        "topic": "",
+        "x": 1210,
+        "y": 620,
+        "wires": [
+            [
+                "cc5df389919afe8c",
+                "59007938c8a16d86"
+            ]
+        ]
+    },
+    {
+        "id": "497a50ea447639c6",
+        "type": "ui_list",
+        "z": "28c0b30d711d2196",
+        "group": "d8d9b395a1c7a074",
+        "name": "",
+        "order": 1,
+        "width": 9,
+        "height": 10,
+        "lineType": "one",
+        "actionType": "menu",
+        "allowHTML": false,
+        "outputs": 1,
+        "topic": "",
+        "x": 1210,
+        "y": 640,
+        "wires": [
+            []
         ]
     },
     {
@@ -1728,29 +1761,6 @@
         ]
     },
     {
-        "id": "497a50ea447639c6",
-        "type": "ui_list",
-        "z": "815664ce68c011b9",
-        "group": "d8d9b395a1c7a074",
-        "name": "",
-        "order": 1,
-        "width": 9,
-        "height": 10,
-        "lineType": "one",
-        "actionType": "menu",
-        "allowHTML": false,
-        "outputs": 1,
-        "topic": "",
-        "x": 1210,
-        "y": 640,
-        "wires": [
-            [
-                "bfb1693c1a9dfb13",
-                "1905b5b869a3e1dd"
-            ]
-        ]
-    },
-    {
         "id": "452d8e83ee10c371",
         "type": "function",
         "z": "815664ce68c011b9",
@@ -1765,7 +1775,6 @@
         "y": 640,
         "wires": [
             [
-                "497a50ea447639c6",
                 "3e3517137e50b2e0"
             ]
         ]
@@ -2438,5 +2447,128 @@
         "x": 580,
         "y": 180,
         "wires": []
+    },
+    {
+        "id": "3eeac3e3969e6f09",
+        "type": "inject",
+        "z": "9d5fe8f89613df12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 240,
+        "wires": [
+            [
+                "8b97cd7f8994edae"
+            ]
+        ]
+    },
+    {
+        "id": "8b97cd7f8994edae",
+        "type": "function",
+        "z": "9d5fe8f89613df12",
+        "name": "",
+        "func": "msg.topic = 'Teste'\nmsg.payload = 'Teste de body'\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 320,
+        "wires": [
+            [
+                "2f4462ac325fea8a",
+                "25086fe8f698d269"
+            ]
+        ]
+    },
+    {
+        "id": "2f4462ac325fea8a",
+        "type": "debug",
+        "z": "9d5fe8f89613df12",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "25086fe8f698d269",
+        "type": "e-mail",
+        "z": "9d5fe8f89613df12",
+        "server": "smtp-relay.sendinblue.com",
+        "port": "587",
+        "secure": false,
+        "tls": false,
+        "name": "hpcla@iscte-iul.pt",
+        "dname": "",
+        "x": 960,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "53af3f9c210ac903",
+        "type": "sms",
+        "z": "9d5fe8f89613df12",
+        "name": "sms",
+        "message": "Tem um intruso a tentar entrar em casa.",
+        "numbers": "+351916923298",
+        "throttle": 1000,
+        "twilio": "f2e52b3469dec7e5",
+        "x": 590,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8b2b42fcc6eeb767",
+        "type": "inject",
+        "z": "9d5fe8f89613df12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 400,
+        "wires": [
+            [
+                "53af3f9c210ac903"
+            ]
+        ]
     }
 ]
