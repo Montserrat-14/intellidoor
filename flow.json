@@ -1117,8 +1117,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1080,
-        "y": 100,
+        "x": 1000,
+        "y": 820,
         "wires": [
             [
                 "d63fe902703f2ee4",
@@ -1140,8 +1140,8 @@
         "proxy": "",
         "authType": "",
         "senderr": false,
-        "x": 1320,
-        "y": 100,
+        "x": 1240,
+        "y": 820,
         "wires": [
             [
                 "1ff5df22af424b56",
@@ -1153,24 +1153,7 @@
         "id": "d63fe902703f2ee4",
         "type": "debug",
         "z": "937379985a2fe9d0",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1270,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "1ff5df22af424b56",
-        "type": "debug",
-        "z": "937379985a2fe9d0",
-        "name": "",
+        "name": "payload",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -1179,8 +1162,25 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1490,
-        "y": 140,
+        "x": 1200,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "1ff5df22af424b56",
+        "type": "debug",
+        "z": "937379985a2fe9d0",
+        "name": "kairos retunr",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1430,
+        "y": 860,
         "wires": []
     },
     {
@@ -1191,7 +1191,7 @@
         "method": "GET",
         "ret": "bin",
         "paytoqs": "ignore",
-        "url": "http://192.168.97.90/capture",
+        "url": "http://192.168.34.96/capture",
         "tls": "",
         "persist": false,
         "proxy": "",
@@ -1259,7 +1259,7 @@
         "y": 340,
         "wires": [
             [
-                "8412dcb71f58a598"
+                "b165780716fc8a0b"
             ]
         ]
     },
@@ -1362,8 +1362,8 @@
         "correl": "",
         "expiry": "",
         "broker": "7194cc2839520ebf",
-        "x": 1840,
-        "y": 320,
+        "x": 1760,
+        "y": 1040,
         "wires": []
     },
     {
@@ -1371,14 +1371,14 @@
         "type": "function",
         "z": "937379985a2fe9d0",
         "name": "",
-        "func": "let openDoor = false\nif(msg.statusCode == 200) {\n    \n    if(msg.payload.Errors){\n        msg.resultMessage = msg.payload.Errors[0].Message\n    }\n    else if(msg.payload.images[0].transaction.status === 'failure') {\n        \n        msg.resultMessage = msg.payload.images[0].transaction.message\n    }\n    else if(msg.payload.images[0].candidates){\n        openDoor=true\n        msg.resultMessage = `Welcome ${msg.payload.images[0].candidates[0].subject_id}`\n    }\n} else {\n    msg.resultMessage = \"Error doing recognition\"\n}\nmsg.payload = openDoor ? 'open' : 'close'\nreturn msg;",
+        "func": "let openDoor = false\nif(msg.statusCode == 200) {\n    \n    if(msg.payload.Errors){\n        msg.resultMessage = msg.payload.Errors[0].Message\n    }\n    else if(msg.payload.images[0].transaction.status === 'failure') {\n        \n        msg.resultMessage = msg.payload.images[0].transaction.message\n    }\n    else if(msg.payload.images[0].candidates){\n        openDoor=true\n        msg.resultMessage = `Welcome ${msg.payload.images[0].candidates[0].subject_id}`\n        \n        \n    }\n} else {\n    msg.resultMessage = \"Error doing recognition\"\n}\nmsg.payload = openDoor ? 'open' : 'close'\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1630,
-        "y": 100,
+        "x": 1550,
+        "y": 820,
         "wires": [
             [
                 "bf6466b98001567d",
@@ -1402,7 +1402,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1800,
-        "y": 180,
+        "y": 920,
         "wires": []
     },
     {
@@ -1418,8 +1418,8 @@
         "format": "{{msg.resultMessage}}",
         "layout": "row-spread",
         "className": "",
-        "x": 1800,
-        "y": 80,
+        "x": 1720,
+        "y": 800,
         "wires": []
     },
     {
@@ -1435,8 +1435,168 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1620,
-        "y": 260,
+        "x": 1540,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "b165780716fc8a0b",
+        "type": "function",
+        "z": "937379985a2fe9d0",
+        "name": "payload to check blacklist",
+        "func": "msg.headers = {};\nmsg.headers['Content-Type'] = 'application/json';\nmsg.headers['app_id'] = '4013890d';\nmsg.headers['app_key'] = '480bc809d9df9b6e8e3feaf3a950a851';\nmsg.payload=\n{\n    \"image\": flow.get('img'),\n    \"gallery_name\":\"blacklist\"\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1150,
+        "y": 500,
+        "wires": [
+            [
+                "15617f90687b8d25"
+            ]
+        ]
+    },
+    {
+        "id": "15617f90687b8d25",
+        "type": "http request",
+        "z": "937379985a2fe9d0",
+        "name": "Recognize on kairos",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.kairos.com/recognize",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 1420,
+        "y": 500,
+        "wires": [
+            [
+                "b336a56fdfb96f77",
+                "72c6c34ef77d78ea"
+            ]
+        ]
+    },
+    {
+        "id": "b336a56fdfb96f77",
+        "type": "debug",
+        "z": "937379985a2fe9d0",
+        "name": "blacklist payload",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1600,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "72c6c34ef77d78ea",
+        "type": "function",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "func": "msg.intruder = false\nif(msg.statusCode == 200) {\n    \n    if(msg.payload.Errors){\n        msg.resultMessageBL = msg.payload.Errors[0].Message\n    }\n    \n    else if(msg.payload.images[0].candidates){\n        msg.intruder = true\n        msg.resultMessageBL = `ALERT INTRUDER: ${msg.payload.images[0].candidates[0].subject_id}`\n        \n        \n    }else{\n        msg.resultMessageBL = ''\n    }\n} else {\n    msg.resultMessageBL = \"Error doing recognition\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1680,
+        "y": 520,
+        "wires": [
+            [
+                "80ef371908de58a0",
+                "b9ae358e79db58a1",
+                "e0923d13a9853c70"
+            ]
+        ]
+    },
+    {
+        "id": "80ef371908de58a0",
+        "type": "debug",
+        "z": "937379985a2fe9d0",
+        "name": "Blacklist Recon Result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "resultMessageBL",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1880,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "b9ae358e79db58a1",
+        "type": "debug",
+        "z": "937379985a2fe9d0",
+        "name": "intruder",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "intruder",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1890,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "e0923d13a9853c70",
+        "type": "switch",
+        "z": "937379985a2fe9d0",
+        "name": "is intruder?",
+        "property": "intruder",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1950,
+        "y": 500,
+        "wires": [
+            [
+                "9b2e4771a27c31f3"
+            ],
+            [
+                "8412dcb71f58a598"
+            ]
+        ]
+    },
+    {
+        "id": "9b2e4771a27c31f3",
+        "type": "ui_text",
+        "z": "937379985a2fe9d0",
+        "group": "8f87ab9d9770bd73",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "name": "ResultMessage",
+        "label": "",
+        "format": "{{msg.resultMessageBL}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 2180,
+        "y": 460,
         "wires": []
     },
     {
