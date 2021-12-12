@@ -411,7 +411,7 @@
         "id": "a0db01256ec70afa",
         "type": "ui_tab",
         "name": "Statistics",
-        "icon": "dashboard",
+        "icon": "fa-bar-chart",
         "disabled": false,
         "hidden": false
     },
@@ -818,7 +818,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "30",
+        "repeat": "600",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
@@ -1098,26 +1098,6 @@
                 "cc5df389919afe8c",
                 "59007938c8a16d86"
             ]
-        ]
-    },
-    {
-        "id": "497a50ea447639c6",
-        "type": "ui_list",
-        "z": "28c0b30d711d2196",
-        "group": "d8d9b395a1c7a074",
-        "name": "",
-        "order": 1,
-        "width": 9,
-        "height": 10,
-        "lineType": "one",
-        "actionType": "menu",
-        "allowHTML": false,
-        "outputs": 1,
-        "topic": "",
-        "x": 1210,
-        "y": 640,
-        "wires": [
-            []
         ]
     },
     {
@@ -1811,7 +1791,7 @@
         "type": "function",
         "z": "937379985a2fe9d0",
         "name": "Prepare a sms",
-        "func": "msg.payload = `Foi detetado o seguinte intruso:  ${msg.subject}`",
+        "func": "msg.payload = `Foi detetado o seguinte intruso:  ${msg.subject}`\nreturn msg",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2173,7 +2153,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "30",
+        "repeat": "600",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
@@ -2202,7 +2182,8 @@
         "y": 640,
         "wires": [
             [
-                "3e3517137e50b2e0"
+                "3e3517137e50b2e0",
+                "9bf1c0a55bd836b5"
             ]
         ]
     },
@@ -2444,6 +2425,28 @@
         "wires": [
             [
                 "4ddd54e53c4dfd88"
+            ]
+        ]
+    },
+    {
+        "id": "9bf1c0a55bd836b5",
+        "type": "ui_list",
+        "z": "815664ce68c011b9",
+        "group": "d8d9b395a1c7a074",
+        "name": "",
+        "order": 1,
+        "width": 9,
+        "height": 10,
+        "lineType": "one",
+        "actionType": "menu",
+        "allowHTML": false,
+        "outputs": 1,
+        "topic": "",
+        "x": 1210,
+        "y": 640,
+        "wires": [
+            [
+                "bfb1693c1a9dfb13"
             ]
         ]
     },
