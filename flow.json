@@ -1405,8 +1405,8 @@
         "correl": "",
         "expiry": "",
         "broker": "7194cc2839520ebf",
-        "x": 1760,
-        "y": 1040,
+        "x": 1990,
+        "y": 1060,
         "wires": []
     },
     {
@@ -1414,39 +1414,21 @@
         "type": "function",
         "z": "937379985a2fe9d0",
         "name": "",
-        "func": "let openDoor = false\nif(msg.statusCode == 200) {\n    \n    if(msg.payload.Errors){\n        msg.resultMessage = msg.payload.Errors[0].Message\n    }\n    else if(msg.payload.images[0].transaction.status === 'failure') {\n        \n        msg.resultMessage = msg.payload.images[0].transaction.message\n    }\n    else if(msg.payload.images[0].candidates){\n        openDoor=true\n        msg.resultMessage = `Welcome ${msg.payload.images[0].candidates[0].subject_id}`\n        \n        \n    }\n} else {\n    msg.resultMessage = \"Error doing recognition\"\n}\nmsg.payload = openDoor ? 'open' : 'close'\nreturn msg;",
+        "func": "let openDoor = false\nif(msg.statusCode == 200) {\n    \n    if(msg.payload.Errors){\n        msg.resultMessage = msg.payload.Errors[0].Message\n    }\n    else if(msg.payload.images[0].transaction.status === 'failure') {\n        \n        msg.resultMessage = msg.payload.images[0].transaction.message\n    }\n    else if(msg.payload.images[0].candidates){\n        openDoor=true\n        msg.resultMessage = `Welcome ${msg.payload.images[0].candidates[0].subject_id}`\n        msg.subject = msg.payload.images[0].candidates[0].subject_id\n    }\n} else {\n    msg.resultMessage = \"Error doing recognition\"\n}\nmsg.payload = openDoor ? 'open' : 'close'\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1550,
-        "y": 820,
+        "x": 1520,
+        "y": 780,
         "wires": [
             [
-                "bf6466b98001567d",
-                "d2dccdac55e21355",
                 "a2c12ec3f8d457b8",
-                "d0ba11d802f9b539"
+                "d0ba11d802f9b539",
+                "d0b2ad31e947e624"
             ]
         ]
-    },
-    {
-        "id": "bf6466b98001567d",
-        "type": "debug",
-        "z": "937379985a2fe9d0",
-        "name": "Recon Result",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "resultMessage",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1800,
-        "y": 920,
-        "wires": []
     },
     {
         "id": "10e3febe4c97b2e2",
@@ -1478,8 +1460,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1540,
-        "y": 980,
+        "x": 1640,
+        "y": 700,
         "wires": []
     },
     {
@@ -1546,7 +1528,7 @@
         "type": "function",
         "z": "937379985a2fe9d0",
         "name": "",
-        "func": "msg.intruder = false\nif(msg.statusCode == 200) {\n    \n    if(msg.payload.Errors){\n        msg.resultMessage = msg.payload.Errors[0].Message\n    }\n    \n    else if(msg.payload.images[0].candidates){\n        msg.intruder = true\n        msg.resultMessage = `ALERT INTRUDER: ${msg.payload.images[0].candidates[0].subject_id}`\n        \n        \n    }else{\n        msg.resultMessage = ''\n    }\n} else {\n    msg.resultMessage = \"Error doing recognition\"\n}\nreturn msg;",
+        "func": "msg.intruder = false\nif(msg.statusCode == 200) {\n    \n    if(msg.payload.Errors){\n        msg.resultMessage = msg.payload.Errors[0].Message\n    }\n    \n    else if(msg.payload.images[0].candidates){\n        msg.intruder = true\n        msg.resultMessage = `ALERT INTRUDER: ${msg.payload.images[0].candidates[0].subject_id}`\n        msg.subject = msg.payload.images[0].candidates[0].subject_id\n    }else{\n        msg.resultMessage = ''\n    }\n} else {\n    msg.resultMessage = \"Error doing recognition\"\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1632,7 +1614,9 @@
         "name": "",
         "mode": "link",
         "links": [
-            "59b146ea97f36ae9"
+            "59b146ea97f36ae9",
+            "55918b3c9437abe9",
+            "30d1bff3d3af69f6"
         ],
         "x": 2135,
         "y": 460,
@@ -1662,10 +1646,11 @@
         "name": "",
         "mode": "link",
         "links": [
-            "59b146ea97f36ae9"
+            "59b146ea97f36ae9",
+            "30d1bff3d3af69f6"
         ],
-        "x": 1705,
-        "y": 800,
+        "x": 1655,
+        "y": 760,
         "wires": []
     },
     {
@@ -1729,6 +1714,115 @@
         "y": 620,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "c631778079a56268",
+        "type": "function",
+        "z": "937379985a2fe9d0",
+        "name": "Prepare an e-mail",
+        "func": "msg.topic = 'Reconhecimento efetuado com sucesso'\nmsg.payload = `A pessoa com o subject id:  ${msg.subject} foi autorizada a entrar na sala`\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2090,
+        "y": 960,
+        "wires": [
+            [
+                "79627a4bbb9ffc13"
+            ]
+        ]
+    },
+    {
+        "id": "79627a4bbb9ffc13",
+        "type": "e-mail",
+        "z": "937379985a2fe9d0",
+        "server": "smtp-relay.sendinblue.com",
+        "port": "587",
+        "secure": false,
+        "tls": false,
+        "name": "hpcla@iscte-iul.pt",
+        "dname": "Send an e-mail",
+        "x": 2360,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "47449da1fdf9576a",
+        "type": "sms",
+        "z": "937379985a2fe9d0",
+        "name": "sms",
+        "message": "",
+        "numbers": "+351916923298",
+        "throttle": 1000,
+        "twilio": "f2e52b3469dec7e5",
+        "x": 2510,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "55918b3c9437abe9",
+        "type": "link in",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "links": [
+            "4c926aa93ea2b9ed"
+        ],
+        "x": 2175,
+        "y": 380,
+        "wires": [
+            [
+                "df1db4767884d513"
+            ]
+        ]
+    },
+    {
+        "id": "d0b2ad31e947e624",
+        "type": "switch",
+        "z": "937379985a2fe9d0",
+        "name": "Check if is to open",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "open",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1750,
+        "y": 820,
+        "wires": [
+            [
+                "c631778079a56268",
+                "d2dccdac55e21355"
+            ]
+        ]
+    },
+    {
+        "id": "df1db4767884d513",
+        "type": "function",
+        "z": "937379985a2fe9d0",
+        "name": "Prepare a sms",
+        "func": "msg.payload = `Foi detetado o seguinte intruso:  ${msg.subject}`",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2320,
+        "y": 380,
+        "wires": [
+            [
+                "47449da1fdf9576a"
+            ]
         ]
     },
     {
