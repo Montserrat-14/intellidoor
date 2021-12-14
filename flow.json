@@ -43,6 +43,14 @@
         "id": "9d5fe8f89613df12",
         "type": "tab",
         "label": "notifications demo",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a508d87e6b255b17",
+        "type": "tab",
+        "label": "Flow 2",
         "disabled": false,
         "info": "",
         "env": []
@@ -414,6 +422,16 @@
         "icon": "fa-bar-chart",
         "disabled": false,
         "hidden": false
+    },
+    {
+        "id": "4427621b.554264",
+        "type": "ui_group",
+        "name": "Crew",
+        "tab": "",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
     },
     {
         "id": "3568749853c0cf5a",
@@ -1176,7 +1194,7 @@
         "type": "debug",
         "z": "937379985a2fe9d0",
         "name": "payload",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1213,7 +1231,7 @@
         "method": "GET",
         "ret": "bin",
         "paytoqs": "ignore",
-        "url": "http://192.168.34.96/capture",
+        "url": "http://192.168.132.96/capture",
         "tls": "",
         "persist": false,
         "proxy": "",
@@ -1394,7 +1412,7 @@
         "type": "function",
         "z": "937379985a2fe9d0",
         "name": "",
-        "func": "let openDoor = false\nif(msg.statusCode == 200) {\n    \n    if(msg.payload.Errors){\n        msg.resultMessage = msg.payload.Errors[0].Message\n    }\n    else if(msg.payload.images[0].transaction.status === 'failure') {\n        \n        msg.resultMessage = msg.payload.images[0].transaction.message\n    }\n    else if(msg.payload.images[0].candidates){\n        openDoor=true\n        msg.resultMessage = `Welcome ${msg.payload.images[0].candidates[0].subject_id}`\n        msg.subject = msg.payload.images[0].candidates[0].subject_id\n    }\n} else {\n    msg.resultMessage = \"Error doing recognition\"\n}\nmsg.payload = openDoor ? 'open' : 'close'\nreturn msg;",
+        "func": "let openDoor = false\nif(msg.statusCode == 200) {\n    \n    if(msg.payload.Errors){\n        msg.resultMessage = msg.payload.Errors[0].Message\n    }\n    else if(msg.payload.images[0].transaction.status === 'failure') {\n        \n        msg.resultMessage = msg.payload.images[0].transaction.message\n    }\n    else if(msg.payload.images[0].candidates){\n        openDoor=true\n        msg.subject = msg.payload.images[0].candidates[0].subject_id\n        msg.log = {\n            'name': msg.subject,\n            'date' : new Date(),\n            'success': 1\n        }\n        msg.resultMessage = `Welcome ${msg.subject}`\n        \n    }\n} else {\n    msg.resultMessage = \"Error doing recognition\"\n}\nmsg.payload = openDoor ? 'open' : 'close'\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1432,7 +1450,7 @@
         "type": "debug",
         "z": "937379985a2fe9d0",
         "name": "Payload",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1508,7 +1526,7 @@
         "type": "function",
         "z": "937379985a2fe9d0",
         "name": "",
-        "func": "msg.intruder = false\nif(msg.statusCode == 200) {\n    \n    if(msg.payload.Errors){\n        msg.resultMessage = msg.payload.Errors[0].Message\n    }\n    \n    else if(msg.payload.images[0].candidates){\n        msg.intruder = true\n        msg.resultMessage = `ALERT INTRUDER: ${msg.payload.images[0].candidates[0].subject_id}`\n        msg.subject = msg.payload.images[0].candidates[0].subject_id\n    }else{\n        msg.resultMessage = ''\n    }\n} else {\n    msg.resultMessage = \"Error doing recognition\"\n}\nreturn msg;",
+        "func": "msg.intruder = false\nif(msg.statusCode == 200) {\n    \n    if(msg.payload.Errors){\n        msg.resultMessage = msg.payload.Errors[0].Message\n    }\n    \n    else if(msg.payload.images[0].candidates){\n        msg.intruder = true\n        msg.subject = msg.payload.images[0].candidates[0].subject_id\n        msg.log = {\n            'name': msg.subject,\n            'date' : new Date(),\n            'success': 0\n        }\n        msg.resultMessage = `ALERT INTRUDER: ${msg.subject}`\n        \n    }else{\n        msg.resultMessage = ''\n    }\n} else {\n    msg.resultMessage = \"Error doing recognition\"\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1529,7 +1547,7 @@
         "type": "debug",
         "z": "937379985a2fe9d0",
         "name": "Blacklist Recon Result",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1546,7 +1564,7 @@
         "type": "debug",
         "z": "937379985a2fe9d0",
         "name": "intruder",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1594,9 +1612,9 @@
         "name": "",
         "mode": "link",
         "links": [
-            "59b146ea97f36ae9",
+            "27755f823788a149",
             "55918b3c9437abe9",
-            "30d1bff3d3af69f6"
+            "59b146ea97f36ae9"
         ],
         "x": 2135,
         "y": 460,
@@ -1658,10 +1676,10 @@
         "z": "937379985a2fe9d0",
         "name": "",
         "group": "da7ba9ac.589008",
-        "order": 0,
+        "order": 1,
         "width": 0,
         "height": 0,
-        "label": "Movement",
+        "label": "Detected Movement",
         "chartType": "line",
         "legend": "false",
         "xformat": "HH:mm:ss",
@@ -1690,7 +1708,7 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 680,
+        "x": 710,
         "y": 620,
         "wires": [
             []
@@ -1782,7 +1800,8 @@
         "wires": [
             [
                 "c631778079a56268",
-                "d2dccdac55e21355"
+                "d2dccdac55e21355",
+                "0b0e663c727122ac"
             ]
         ]
     },
@@ -1804,6 +1823,161 @@
                 "47449da1fdf9576a"
             ]
         ]
+    },
+    {
+        "id": "43f741f3091129e9",
+        "type": "ui_table",
+        "z": "937379985a2fe9d0",
+        "group": "da7ba9ac.589008",
+        "name": "Accesses",
+        "order": 2,
+        "width": "12",
+        "height": "20",
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 620,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "73db36d8805ae153",
+        "type": "function",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "func": "const logs = global.get(\"logs\")\nlogs.push({\n    \"Name\": msg.subject,\n    \"Status\": msg.log.success === 1 ? 'Safe' : 'Intruder',\n    \"Date\": new Date().toLocaleString()\n})\nmsg.payload = logs\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 800,
+        "wires": [
+            [
+                "a770da7f6751659b",
+                "43f741f3091129e9"
+            ]
+        ]
+    },
+    {
+        "id": "27755f823788a149",
+        "type": "link in",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "links": [
+            "0b0e663c727122ac",
+            "4c926aa93ea2b9ed"
+        ],
+        "x": 125,
+        "y": 820,
+        "wires": [
+            [
+                "73db36d8805ae153",
+                "559cbb43a7d5708d"
+            ]
+        ]
+    },
+    {
+        "id": "d254d98f66b3d8b0",
+        "type": "change",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "logs",
+                "pt": "global",
+                "to": "[]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e669d635bb7d0dd4",
+        "type": "inject",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 940,
+        "wires": [
+            [
+                "d254d98f66b3d8b0"
+            ]
+        ]
+    },
+    {
+        "id": "0b0e663c727122ac",
+        "type": "link out",
+        "z": "937379985a2fe9d0",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "27755f823788a149"
+        ],
+        "x": 1985,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "559cbb43a7d5708d",
+        "type": "debug",
+        "z": "937379985a2fe9d0",
+        "name": "TABLE INPUT",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "log",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "a770da7f6751659b",
+        "type": "debug",
+        "z": "937379985a2fe9d0",
+        "name": "TABLE PAYLOAD",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 720,
+        "wires": []
     },
     {
         "id": "d2c51ab7e4ea0161",
@@ -2998,6 +3172,177 @@
         "wires": [
             [
                 "53af3f9c210ac903"
+            ]
+        ]
+    },
+    {
+        "id": "457f0b8aa213d855",
+        "type": "inject",
+        "z": "a508d87e6b255b17",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 360,
+        "y": 380,
+        "wires": [
+            [
+                "478f99b151fd071c"
+            ]
+        ]
+    },
+    {
+        "id": "478f99b151fd071c",
+        "type": "http request",
+        "z": "a508d87e6b255b17",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://api.open-notify.org/astros.json",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 560,
+        "y": 300,
+        "wires": [
+            [
+                "c7509480bc37dfc6"
+            ]
+        ]
+    },
+    {
+        "id": "76b0809a51467b2d",
+        "type": "debug",
+        "z": "a508d87e6b255b17",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "38f8b3dd0b01732d",
+        "type": "ui_button",
+        "z": "a508d87e6b255b17",
+        "name": "",
+        "group": "4427621b.554264",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Update Crew",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 360,
+        "y": 240,
+        "wires": [
+            [
+                "478f99b151fd071c"
+            ]
+        ]
+    },
+    {
+        "id": "77843e04126ac718",
+        "type": "ui_table",
+        "z": "a508d87e6b255b17",
+        "group": "4427621b.554264",
+        "name": "Crew",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "columns": [
+            {
+                "field": "name",
+                "title": "Name",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 960,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "c7509480bc37dfc6",
+        "type": "function",
+        "z": "a508d87e6b255b17",
+        "name": "Get crew array",
+        "func": "msg.payload = msg.payload.people;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 770,
+        "y": 300,
+        "wires": [
+            [
+                "76b0809a51467b2d",
+                "77843e04126ac718",
+                "be0c4bf58fc85244"
+            ]
+        ]
+    },
+    {
+        "id": "7902485a613b2af5",
+        "type": "ui_audio",
+        "z": "a508d87e6b255b17",
+        "name": "",
+        "group": "4427621b.554264",
+        "voice": "com.apple.speech.synthesis.voice.samantha",
+        "always": "",
+        "x": 1030,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "be0c4bf58fc85244",
+        "type": "function",
+        "z": "a508d87e6b255b17",
+        "name": "",
+        "func": "var newmsg = {}\nnewmsg.payload = \"Current crew on the International Space Station is\";\nnode.send(newmsg);\nfor (var i = 0; i < msg.payload.length; i++)\n{\n    \n    var name = msg.payload[i].name;\n    newmsg.payload = name;\n    \n    node.send(newmsg);\n    \n}\nreturn null;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 860,
+        "y": 420,
+        "wires": [
+            [
+                "7902485a613b2af5"
             ]
         ]
     }
